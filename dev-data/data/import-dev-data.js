@@ -41,9 +41,9 @@ const comments = JSON.parse(
 // import data into database
 const loadData = async () => {
   try {
-    await Tour.create({ ...tours });
+    await Tour.create(tours);
     await User.create(users, { validateBeforeSave: false });
-    await Comment.create({ ...comments });
+    await Comment.create(comments);
     console.log('👍👍👍👍👍👍👍👍 Done!'.green.bold);
     process.exit();
   } catch (err) {
