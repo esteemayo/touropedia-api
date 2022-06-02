@@ -23,9 +23,9 @@ const mongoURI = process.env.DATABASE.replace(
 
 // MongoDB connection
 mongoose
-  .connect(dbLocal)
+  .connect(mongoURI)
   .then(() =>
-    console.log(`Connnected to MongoDB Successfully → ${dbLocal}`.gray.bold)
+    console.log(`Connnected to MongoDB Successfully → ${mongoURI}`.gray.bold)
   )
   .catch((err) =>
     console.log(`Could not connect to MongoDB → ${err}`.red.bold)
