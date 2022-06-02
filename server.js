@@ -20,11 +20,16 @@ const mongoURI = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
+const devEnv = process.env.NODE_ENV !== 'production';
+
 // MongoDB Connevtion
 mongoose
-  .connect(mongoURI)
+  .connect(`${devEnv ? dbLocal : mongoURI}`)
   .then(() =>
-    console.log(`Connected to MongoDB Successfully → ${mongoURI}`.gray.bold)
+    console.log(
+      `Connected to MongoDB Successfully → ${devEnv ? dbLocal : mongoURI}`.gray
+        .bold
+    )
   );
 
 // start server

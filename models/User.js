@@ -1,4 +1,3 @@
-const md5 = require('md5');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -67,11 +66,6 @@ const userSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
-// userSchema.virtual('gravatar').get(function () {
-//   const hash = md5(this.email);
-//   return `https://gravatar.com/avatar/${hash}?s=200`;
-// });
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
