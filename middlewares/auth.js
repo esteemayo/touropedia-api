@@ -20,3 +20,5 @@ const auth = asyncWrapper(async (req, res, next) => {
 
   next();
 });
+
+module.exports = auth;
