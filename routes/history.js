@@ -5,7 +5,7 @@ const historyController = require('../controllers/historyController');
 
 const router = express.Router();
 
-router.get('/tours/:id', historyController.getHistoriesOnTour);
+router.get('/tour/:id', historyController.getHistoriesOnTour);
 
 router.use(authController.protect);
 
