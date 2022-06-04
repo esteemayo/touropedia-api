@@ -27,7 +27,7 @@ router.get(
 router.get(
   '/stats',
   authController.protect,
-  authController.restrictTo('admin'),
+  authController.restrictTo('admin', 'lead-guide'),
   tourController.getToursStats
 );
 
