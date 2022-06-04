@@ -296,8 +296,8 @@ paths:
             schema:
               $ref: '#/components/schemas/SIGNINREQUEST'
             example:
-              email: jdoe@example.com
-              password: test1234
+              email:
+              password:
         required: true
       responses:
         '200':
@@ -319,7 +319,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FORGOTPASSWORDREQUEST'
             example:
-              email: test@example.com
+              email:
         required: true
       responses:
         '200':
