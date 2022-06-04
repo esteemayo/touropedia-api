@@ -1,0 +1,1179 @@
+openapi: 3.0.0
+info:
+  title: Touropedia
+  contact:
+    name: Emmanuel Adebayo
+    email: eadebayo15@gmail.com
+  version: '1.0'
+servers:
+  - url: https://touropedia-api.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /tours:
+    get:
+      tags:
+        - Tour
+      summary: GET ALL TOURS
+      operationId: GETALLTOURS
+      parameters:
+        - name: fields
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: title,name,creator,slug
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    post:
+      tags:
+        - Tour
+      summary: CREATE NEW TOUR
+      operationId: CREATENEWTOUR
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATENEWTOURREQUEST'
+            example:
+              title: ''
+              description: ''
+              tags: []
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tours/user/user-tours:
+    get:
+      tags:
+        - Tour
+      summary: GET USER TOURS
+      operationId: GETUSERTOURS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tours/stats:
+    get:
+      tags:
+        - Tour
+      summary: GET TOURS STATS
+      operationId: GETTOURSSTATS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tours/search:
+    get:
+      tags:
+        - Tour
+      summary: SEARCH TOUR
+      operationId: SEARCHTOUR
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /tours/search/query:
+    get:
+      tags:
+        - Tour
+      summary: GET TOURS BY SEARCH
+      operationId: GETTOURSBYSEARCH
+      parameters:
+        - name: searchQuery
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: vegas
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /tours/tag/{tag}:
+    parameters:
+      - in: path
+        name: tag
+        schema:
+          type: string
+        required: true
+        description: The Tour TAG
+    get:
+      tags:
+        - Tour
+      summary: GET TOURS BY TAG
+      operationId: GETTOURSBYTAG
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /tours/tags/{tag}:
+    parameters:
+      - in: path
+        name: tag
+        schema:
+          type: string
+        required: true
+        description: The Tour TAG
+    get:
+      tags:
+        - Tour
+      summary: GET TOURS BY TAG WITH AGGREGATE
+      operationId: GETTOURSBYTAGWITHAGGREGATE
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /tours/details/{slug}:
+    parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+        description: The Tour SLUG
+    get:
+      tags:
+        - Tour
+      summary: GET TOUR BY SLUG
+      operationId: GETTOURBYSLUG
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /tours/find/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Tour ID
+    get:
+      tags:
+        - Tour
+      summary: GET TOUR BY ID
+      operationId: GETTOURBYID
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /tours/related-tours:
+    post:
+      tags:
+        - Tour
+      summary: GET RELATED TOURS
+      operationId: GETRELATEDTOURS
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GETRELATEDTOURSREQUEST'
+            example:
+              tag: []
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /tours/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Tour ID
+    patch:
+      tags:
+        - Tour
+      summary: UPDATE TOUR
+      operationId: UPDATETOUR
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATETOURREQUEST'
+            example:
+              title: ''
+              description: ''
+              tags: []
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Tour
+      summary: DELETE TOUR
+      operationId: DELETETOUR
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tours/like/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Tour ID
+    patch:
+      tags:
+        - Tour
+      summary: LIKE POST
+      operationId: LIKEPOST
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /auth/signin:
+    post:
+      tags:
+        - Auth
+      summary: SIGN IN
+      operationId: SIGNIN
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SIGNINREQUEST'
+            example:
+              email: jdoe@example.com
+              password: test1234
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/forgot-password:
+    post:
+      tags:
+        - Auth
+      summary: FORGOT PASSWORD
+      operationId: FORGOTPASSWORD
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FORGOTPASSWORDREQUEST'
+            example:
+              email: test@example.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/reset-password/{token}:
+    parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+        description: The Reset Password TOKEN
+    post:
+      tags:
+        - Auth
+      summary: RESET PASSWORD
+      operationId: RESETPASSWORD
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RESETPASSWORDREQUEST'
+            example:
+              password: ''
+              passwordconfirm: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/update-my-password:
+    patch:
+      tags:
+        - Auth
+      summary: UPDATE CURRENT USER PASSWORD
+      operationId: UPDATECURRENTUSERPASSWORD
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATECURRENTUSERPASSWORDREQUEST'
+            example:
+              passwordCurrent: ''
+              password: ''
+              passwordconfirm: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users:
+    get:
+      tags:
+        - User
+      summary: GET ALL USERS
+      operationId: GETALLUSERS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - User
+      summary: CREATE NEW USER
+      operationId: CREATENEWUSER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example: {}
+            example: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/stats:
+    get:
+      tags:
+        - User
+      summary: GET USERS STATS
+      operationId: GETUSERSSTATS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/me:
+    get:
+      tags:
+        - User
+      summary: GET CURRENT USER DATA
+      operationId: GETCURRENTUSERDATA
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/signup:
+    post:
+      tags:
+        - User
+      summary: SIGN UP
+      operationId: SIGNUP
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SIGNUPREQUEST'
+            example:
+              firstName: ''
+              lastName: ''
+              email: ''
+              password: ''
+              passwordConfirm: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The User ID
+    get:
+      tags:
+        - User
+      summary: GET USER
+      operationId: GETUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+
+    patch:
+      tags:
+        - User
+      summary: UPDATE USER
+      operationId: UPDATEUSER
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example: {}
+            example: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - User
+      summary: DELETE USER
+      operationId: DELETEUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/update-me:
+    patch:
+      tags:
+        - User
+      summary: UPDATE CURRENT USER DATA
+      operationId: UPDATECURRENTUSERDATA
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATECURRENTUSERDATAREQUEST'
+            example:
+              name: ''
+              email: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /users/delete-me:
+    delete:
+      tags:
+        - User
+      summary: DELETE CURRENT USER
+      operationId: DELETECURRENTUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /comments:
+    get:
+      tags:
+        - Comment
+      summary: GET ALL COMMENTS
+      operationId: GETALLCOMMENTS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - Comment
+      summary: CREATE NEW COMMENT
+      operationId: CREATENEWCOMMENT
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATENEWCOMMENTREQUEST'
+            example:
+              body:
+              tour:
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /comments/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Comment ID
+    get:
+      tags:
+        - Comment
+      summary: GET COMMENT BY ID
+      operationId: GETCOMMENTBYID
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Comment
+      summary: UPDATE COMMENT
+      operationId: UPDATECOMMENT
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATECOMMENTREQUEST'
+            example:
+              body: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Comment
+      summary: DELETE COMMENT
+      operationId: DELETECOMMENT
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /comments/stats:
+    get:
+      tags:
+        - Comment
+      summary: GET COMMENT STATS
+      operationId: GETCOMMENTSTATS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /tours/{id}/comments:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Tour ID
+    get:
+      tags:
+        - Comment|Tour
+      summary: GET ALL COMMENTS ON TOUR
+      operationId: GETALLCOMMENTSONTOUR
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+
+    post:
+      tags:
+        - Comment|Tour
+      summary: CREATE NEW COMMENT ON TOUR
+      operationId: CREATENEWCOMMENTONTOUR
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATENEWCOMMENTONTOURREQUEST'
+            example:
+              body: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /bookmarks:
+    get:
+      tags:
+        - Bookmark
+      summary: GET ALL BOOKMARKS
+      operationId: GETALLBOOKMARKS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - Bookmark
+      summary: CREATE NEW BOOKMARK
+      operationId: CREATENEWBOOKMARK
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATENEWBOOKMARKREQUEST'
+            example:
+              tour: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /bookmarks/find/user:
+    get:
+      tags:
+        - Bookmark
+      summary: GET CURRENT USER BOOKMARKS
+      operationId: GETCURRENTUSERBOOKMARKS
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /bookmarks/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Bookmark ID
+    get:
+      tags:
+        - Bookmark
+      summary: GET BOOKMARK
+      operationId: GETBOOKMARK
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Bookmark
+      summary: UPDATE BOOKMARK
+      operationId: UPDATEBOOKMARK
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example: {}
+            example: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Bookmark
+      summary: DELETE BOOKMARK
+      operationId: DELETEBOOKMARK
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /bookmarks/tour/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Tour ID
+    get:
+      tags:
+        - Bookmark
+      summary: GET ONE BOOKMARK BY USER
+      operationId: GETONEBOOKMARKBYUSER
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /histories:
+    get:
+      tags:
+        - History
+      summary: GET ALL HISTORIES
+      operationId: GETALLHISTORIES
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - History
+      summary: CREATE NEW HISTORY
+      operationId: CREATENEWHISTORY
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CREATENEWHISTORYREQUEST'
+            example:
+              tour: ''
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /histories/tour/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Tour ID
+    get:
+      tags:
+        - History
+      summary: GET RELATED HISTORIES
+      operationId: GETRELATEDHISTORIES
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /histories/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The History ID
+    get:
+      tags:
+        - History
+      summary: GET HISTORY
+      operationId: GETHISTORY
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - History
+      summary: UPDATE HISTORY
+      operationId: UPDATEHISTORY
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example: {}
+            example: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - History
+      summary: DELETE HISTORY
+      operationId: DELETEHISTORY
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    CREATENEWTOURREQUEST:
+      title: CREATE NEW TOUR REQUEST
+      required:
+        - title
+        - description
+        - tags
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        title: ''
+        description: ''
+        tags: []
+    GETRELATEDTOURSREQUEST:
+      title: GET RELATED TOURS REQUEST
+      required:
+        - tag
+      type: object
+      properties:
+        tag:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        tag: []
+    UPDATETOURREQUEST:
+      title: UPDATE TOUR REQUEST
+      required:
+        - title
+        - description
+        - tags
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        title: ''
+        description: ''
+        tags: []
+    SIGNINREQUEST:
+      title: SIGNIN REQUEST
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: jdoe@example.com
+        password: test1234
+    FORGOTPASSWORDREQUEST:
+      title: FORGOT PASSWORD REQUEST
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: test@example.com
+    RESETPASSWORDREQUEST:
+      title: RESET PASSWORD REQUEST
+      required:
+        - password
+        - passwordconfirm
+      type: object
+      properties:
+        password:
+          type: string
+        passwordconfirm:
+          type: string
+      example:
+        password: ''
+        passwordconfirm: ''
+    UPDATECURRENTUSERPASSWORDREQUEST:
+      title: UPDATE CURRENT USER PASSWORD REQUEST
+      required:
+        - passwordCurrent
+        - password
+        - passwordconfirm
+      type: object
+      properties:
+        passwordCurrent:
+          type: string
+        password:
+          type: string
+        passwordconfirm:
+          type: string
+      example:
+        passwordCurrent: ''
+        password: ''
+        passwordconfirm: ''
+    SIGNUPREQUEST:
+      title: SIGNUP REQUEST
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+        - passwordConfirm
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        passwordConfirm:
+          type: string
+      example:
+        firstName: ''
+        lastName: ''
+        email: ''
+        password: ''
+        passwordConfirm: ''
+    UPDATECURRENTUSERDATAREQUEST:
+      title: UPDATE CURRENT USER DATA REQUEST
+      required:
+        - name
+        - email
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      example:
+        name: ''
+        email: ''
+    CREATENEWCOMMENTREQUEST:
+      title: CREATE NEW COMMENT REQUEST
+      required:
+        - body
+        - tour
+      type: object
+      properties:
+        body:
+          type: string
+        tour:
+          type: string
+      example:
+        body: Lorem ipsum dolor sit amet
+        tour: 6283b29d7696ffe77f659d1a
+    UPDATECOMMENTREQUEST:
+      title: UPDATE COMMENT REQUEST
+      required:
+        - body
+      type: object
+      properties:
+        body:
+          type: string
+      example:
+        body: ''
+    CREATENEWCOMMENTONTOURREQUEST:
+      title: CREATE NEW COMMENT ON TOUR REQUEST
+      required:
+        - body
+      type: object
+      properties:
+        body:
+          type: string
+      example:
+        body: ''
+    CREATENEWBOOKMARKREQUEST:
+      title: CREATE NEW BOOKMARK REQUEST
+      required:
+        - tour
+      type: object
+      properties:
+        tour:
+          type: string
+      example:
+        tour: ''
+    CREATENEWHISTORYREQUEST:
+      title: CREATE NEW HISTORY REQUEST
+      required:
+        - tour
+      type: object
+      properties:
+        tour:
+          type: string
+      example:
+        tour: ''
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Tour
+  - name: Auth
+  - name: User
+  - name: Comment
+  - name: Comment|Tour
+  - name: Bookmark
+  - name: History
